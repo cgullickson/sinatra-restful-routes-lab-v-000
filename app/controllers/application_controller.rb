@@ -3,7 +3,11 @@ class ApplicationController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views'
   end
-  
+
+  get '/' do
+    erb :home
+  end
+
   get '/recipes' do
     @recipes = Recipe.all
     erb :index
@@ -37,8 +41,8 @@ class ApplicationController < Sinatra::Base
   end
 
   delete '/recipes/:id/delete' do #delete action
-    @recipe = Recipe.find_by_id(params[:id])
-    @recipe.destroy
+    recipe = Recipe.find_by_id(params[:id])
+    recipe.destroy
     redirect to '/recipes'
   end
 
